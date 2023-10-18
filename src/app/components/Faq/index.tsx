@@ -18,8 +18,8 @@ const Faq = () => {
   }
 
   return (
-    <section className="container bg-primary px-4 pb-8 md:px-0">
-      <Title text="FAQ" />
+    <section className="container bg-primary pb-8">
+      <Title text="Faq" />
       <article className="flex  flex-col items-center justify-center">
         {FAQSessionsMock.map((session) => (
           <Fragment key={session.id}>

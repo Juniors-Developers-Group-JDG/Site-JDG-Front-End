@@ -38,7 +38,7 @@ export default function VacancyCardPage({
   }, [route])
 
   return (
-    <section className="container flex flex-col items-center justify-center gap-5 px-4 md:px-0">
+    <section className="container flex flex-col items-center justify-center gap-5">
       <BsArrowLeft
         onClick={handleBack}
         className="my-10 h-12 w-12 self-start rounded-full border border-secondary-500 border-opacity-30 p-2 text-secondary-50 transition-all ease-in-out hover:cursor-pointer hover:border-opacity-100"
@@ -78,7 +78,7 @@ export default function VacancyCardPage({
         </p>
       </section>
 
-      <section className="mt-10 w-full bg-secondary-880 px-10 py-16">
+      <section className="mt-10 w-full bg-secondary-880 px-4 py-16 xl:px-6">
         <span className="flex h-16 w-full gap-5 border border-x-transparent border-b-secondary-100 border-t-transparent">
           <h1 className=" text-2xl text-secondary-50 xl:text-xxl">
             Voluntariar-se
