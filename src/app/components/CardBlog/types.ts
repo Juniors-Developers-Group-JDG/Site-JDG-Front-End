@@ -1,6 +1,6 @@
 export type CardBlogProps = {
   title: string
-  image: string
+  image?: string
   date: string
   id: string
 }
