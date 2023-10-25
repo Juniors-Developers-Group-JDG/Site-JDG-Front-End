@@ -1,4 +1,5 @@
 'use client'
+import { format } from 'date-fns'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { useCallback } from 'react'
@@ -9,6 +10,8 @@ export default function CardBlog({ date, image, title, id }: CardBlogProps) {
   const handlePushRoute = useCallback(() => {
     route.push(`/post/${id}`)
   }, [id, route])
+
+  const parsedDate = format(new Date(date), 'dd/MM/yyyy')
 
   return (
     <article
@@ -31,7 +34,9 @@ export default function CardBlog({ date, image, title, id }: CardBlogProps) {
         <h1 className="text-base font-bold leading-tight text-secondary-50">
           {title}
         </h1>
-        <span className="text-base leading-5 text-primary-400">{date}</span>
+        <span className="text-base leading-5 text-primary-400">
+          {parsedDate}
+        </span>
       </section>
     </article>
   )
