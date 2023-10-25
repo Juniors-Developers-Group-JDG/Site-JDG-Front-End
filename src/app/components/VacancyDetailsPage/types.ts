@@ -1,13 +1,10 @@
-import { z } from 'zod'
 import { vacancyFormPropsSchema } from '@/zod'
+import { z } from 'zod'
 
 export type CardVacanciesProps = {
   id: number
   title: string
-  techs: {
-    id: number
-    name: string
-  }[]
+  stack: string[]
   category: string
   description: string
   date: string
