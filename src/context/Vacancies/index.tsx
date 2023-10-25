@@ -7,6 +7,7 @@ import { toast } from 'react-toastify'
 
 interface VacanciesContextData {
   vacancies: Vacancy[]
+  isLoading: boolean
 }
 
 export const vacanciesContext = createContext<VacanciesContextData>(
@@ -18,8 +19,11 @@ interface VacanciesProviderProps {
 }
 
 export function VacanciesProvider({ children }: VacanciesProviderProps) {
-  const { data: vacancies = [], error } =
-    useFetch<Vacancy[]>('/job-opportunities')
+  const {
+    data: vacancies = [],
+    error,
+    isLoading,
+  } = useFetch<Vacancy[]>('/job-opportunities')
 
   useEffect(() => {
     if (error) {
@@ -28,7 +32,7 @@ export function VacanciesProvider({ children }: VacanciesProviderProps) {
   }, [error])
 
   return (
-    <vacanciesContext.Provider value={{ vacancies }}>
+    <vacanciesContext.Provider value={{ vacancies, isLoading }}>
       {children}
     </vacanciesContext.Provider>
   )
