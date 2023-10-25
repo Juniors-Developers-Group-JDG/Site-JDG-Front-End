@@ -12,13 +12,13 @@ const VacanciesPage = () => {
 
   const { vacancies } = useVacancies()
 
-  const filteredVacancies = vacancies.filter((vacancie) => {
+  const filteredVacancies = vacancies.filter((vacancy) => {
     const categoryMatch =
-      !selectedCategory || vacancie.category === selectedCategory
+      !selectedCategory || vacancy.category === selectedCategory
     const textMatch =
       !searchText ||
       (typeof searchText === 'string' &&
-        vacancie.title.toLowerCase().includes(searchText.toLowerCase()))
+        vacancy.title.toLowerCase().includes(searchText.toLowerCase()))
 
     return categoryMatch && textMatch
   })
@@ -49,8 +49,8 @@ const VacanciesPage = () => {
 
       <section className="flex w-full flex-col items-center justify-center md:flex-row md:flex-wrap md:justify-between">
         {filteredVacancies &&
-          filteredVacancies.map((vacancie) => (
-            <CardVacancies key={vacancie.id} {...vacancie} />
+          filteredVacancies.map((vacancy) => (
+            <CardVacancies key={vacancy.id} {...vacancy} />
           ))}
       </section>
     </section>
