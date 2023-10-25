@@ -1,16 +1,18 @@
 'use client'
+import { useVacancies } from '@/hooks/useVacancies'
 import { useState } from 'react'
-import { Vacancies } from '@/mocks/Vacancies'
 import CardVacancies from '../CardVacancies'
-import VacanciesHeader from '../VacanciesHeader'
 import VacancieDropdown from '../VacancieDropdown'
 import { VacancieInputFilter } from '../VacancieInputFilter'
+import VacanciesHeader from '../VacanciesHeader'
 
 const VacanciesPage = () => {
   const [searchText, setSearchText] = useState('')
   const [selectedCategory, setSelectedCategory] = useState('')
 
-  const filteredVacancies = Vacancies.filter((vacancie) => {
+  const { vacancies } = useVacancies()
+
+  const filteredVacancies = vacancies.filter((vacancie) => {
     const categoryMatch =
       !selectedCategory || vacancie.category === selectedCategory
     const textMatch =

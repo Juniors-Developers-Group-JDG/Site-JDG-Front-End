@@ -1,3 +1,4 @@
+import { VacanciesProvider } from '@/context/Vacancies'
 import { Metadata } from 'next'
 import VacanciesPage from '../../components/VacanciesPage'
 
@@ -7,5 +8,9 @@ export const metadata: Metadata = {
 }
 
 export default function Vacancies() {
-  return <VacanciesPage />
+  return (
+    <VacanciesProvider>
+      <VacanciesPage />
+    </VacanciesProvider>
+  )
 }
