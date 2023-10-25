@@ -1,21 +1,21 @@
 'use client'
-import Input from '../Input'
-import { useCallback } from 'react'
-import { toast } from 'react-toastify'
-import { BsArrowLeft } from 'react-icons/bs'
-import { useRouter } from 'next/navigation'
 import { vacancyFormPropsSchema } from '@/zod'
-import { AiFillGithub } from 'react-icons/ai'
-import { MdOutlineEmail } from 'react-icons/md'
-import { FiPhone, FiLinkedin } from 'react-icons/fi'
-import { HiOutlineUserCircle } from 'react-icons/hi'
-import { useForm, FormProvider } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useRouter } from 'next/navigation'
+import { useCallback } from 'react'
+import { FormProvider, useForm } from 'react-hook-form'
+import { AiFillGithub } from 'react-icons/ai'
+import { BsArrowLeft } from 'react-icons/bs'
+import { FiLinkedin, FiPhone } from 'react-icons/fi'
+import { HiOutlineUserCircle } from 'react-icons/hi'
+import { MdOutlineEmail } from 'react-icons/md'
+import { toast } from 'react-toastify'
+import Input from '../Input'
 import { CardVacanciesProps, VacancyFormProps } from './types'
 
 export default function VacancyCardPage({
   description,
-  techs,
+  stack,
   date,
   title,
 }: CardVacanciesProps) {
@@ -53,14 +53,14 @@ export default function VacancyCardPage({
             <h1 className="text-xl font-semibold tracking-wider text-secondary">
               {title}
             </h1>
-            {techs.map((tech, index) => (
+            {stack.map((stack, index) => (
               <span
-                key={tech.id}
-                data-tech={tech.name}
+                key={stack}
+                data-tech={stack}
                 className="relative p-2 text-xs tracking-wider text-primary-400"
               >
-                {tech.name}
-                {index < techs.length - 1 && (
+                {stack}
+                {index < stack.length - 1 && (
                   <span className="absolute top-[5.5px] pl-[5.5px] text-primary-400">
                     .
                   </span>
