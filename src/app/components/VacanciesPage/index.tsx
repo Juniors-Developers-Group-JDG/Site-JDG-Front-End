@@ -9,7 +9,9 @@ import VacanciesHeader from '../VacanciesHeader'
 
 const VacanciesPage = () => {
   const [searchText, setSearchText] = useState('')
-  const [selectedCategory, setSelectedCategory] = useState('')
+  const [selectedCategory, setSelectedCategory] = useState<string | undefined>(
+    '',
+  )
 
   const { vacancies, isLoading } = useVacancies()
 
@@ -24,7 +26,7 @@ const VacanciesPage = () => {
     return categoryMatch && textMatch
   })
 
-  const handleCategorySelect = (categoryName: string) => {
+  const handleCategorySelect = (categoryName: string | undefined) => {
     setSelectedCategory(categoryName)
     setSearchText('')
   }
