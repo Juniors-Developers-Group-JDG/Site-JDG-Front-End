@@ -1,10 +1,10 @@
 'use client'
-import { useCallback } from 'react'
 import { useRouter } from 'next/navigation'
+import { useCallback } from 'react'
 import { CardVacanciesProps } from './types'
 
 const CardVacancies = ({
-  techs,
+  stack,
   title,
   description,
   id,
@@ -22,14 +22,14 @@ const CardVacancies = ({
         <h1 className="text-base font-semibold tracking-wider text-secondary">
           {title}
         </h1>
-        {techs.map((tech, index) => (
+        {stack.map((tech, index) => (
           <span
-            key={tech.id}
-            data-tech={tech.name}
+            key={tech}
+            data-tech={tech}
             className="relative p-2 text-xs tracking-wider text-primary-400"
           >
-            {tech.name}
-            {index < techs.length - 1 && (
+            {tech}
+            {index < stack.length - 1 && (
               <span className="absolute top-[5.5px] pl-[5.5px] text-primary-400">
                 .
               </span>
