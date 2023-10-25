@@ -2,6 +2,7 @@
 import { useVacancies } from '@/hooks/useVacancies'
 import { useState } from 'react'
 import CardVacancies from '../CardVacancies'
+import { LoadingFallback } from '../LoadingFallback'
 import VacancieDropdown from '../VacancieDropdown'
 import { VacancieInputFilter } from '../VacancieInputFilter'
 import VacanciesHeader from '../VacanciesHeader'
@@ -10,7 +11,7 @@ const VacanciesPage = () => {
   const [searchText, setSearchText] = useState('')
   const [selectedCategory, setSelectedCategory] = useState('')
 
-  const { vacancies } = useVacancies()
+  const { vacancies, isLoading } = useVacancies()
 
   const filteredVacancies = vacancies.filter((vacancy) => {
     const categoryMatch =
@@ -48,10 +49,17 @@ const VacanciesPage = () => {
       </section>
 
       <section className="flex w-full flex-col items-center justify-center md:flex-row md:flex-wrap md:justify-between">
-        {filteredVacancies &&
+        {isLoading ? (
+          <LoadingFallback />
+        ) : filteredVacancies.length > 0 ? (
           filteredVacancies.map((vacancy) => (
             <CardVacancies key={vacancy.id} {...vacancy} />
-          ))}
+          ))
+        ) : (
+          <p className="w-full text-center text-2xl text-secondary opacity-70">
+            Infelizmente não foi possível encontrar vagas
+          </p>
+        )}
       </section>
     </section>
   )
