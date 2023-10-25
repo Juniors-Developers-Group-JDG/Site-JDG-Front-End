@@ -15,9 +15,12 @@ const VacanciesPage = () => {
 
   const { vacancies, isLoading } = useVacancies()
 
+  console.log({ vacancies })
+
   const filteredVacancies = vacancies.filter((vacancy) => {
     const categoryMatch =
-      !selectedCategory || vacancy.category === selectedCategory
+      !selectedCategory ||
+      vacancy.category.toLowerCase() === selectedCategory.toLowerCase()
     const textMatch =
       !searchText ||
       (typeof searchText === 'string' &&
