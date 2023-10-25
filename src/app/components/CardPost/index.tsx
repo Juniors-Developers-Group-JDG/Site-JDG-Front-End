@@ -1,4 +1,5 @@
 'use client'
+import { format } from 'date-fns'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { useCallback } from 'react'
@@ -17,12 +18,14 @@ const CardPost = ({
     route.back()
   }, [route])
 
+  const parsedDate = format(new Date(createdAt), 'dd/MM/yyyy')
+
   return (
     <section className="container flex flex-col items-center justify-center gap-4 py-10">
       <h1 className="max-w-2xl text-center text-2xl font-semibold tracking-wider text-primary md:text-3xl">
         {title}
       </h1>
-      <span className="text-xs text-secondary-500">{createdAt}</span>
+      <span className="text-xs text-secondary-500">{parsedDate}</span>
 
       <BsArrowLeft
         onClick={handlePushRoute}
