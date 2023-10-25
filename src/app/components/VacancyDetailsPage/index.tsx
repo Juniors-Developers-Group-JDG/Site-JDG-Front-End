@@ -95,24 +95,27 @@ export default function VacancyCardPage({
                 <Input
                   type="text"
                   name="name"
-                  label="Nome completo"
+                  label="Nome completo*"
                   icon={HiOutlineUserCircle}
                   placeholder="Ana Clara Araujo"
+                  required
                 />
 
                 <Input
                   type="email"
                   name="email"
-                  label="Email"
+                  label="Email*"
                   icon={MdOutlineEmail}
                   placeholder="anaclara@gmail.com"
+                  required
                 />
                 <Input
                   type="text"
                   name="cellphone"
-                  label="Telefone"
+                  label="Telefone*"
                   icon={FiPhone}
                   placeholder="(64) 9 8135-2900"
+                  required
                 />
 
                 <section className="flex flex-col gap-8 md:flex-row">
