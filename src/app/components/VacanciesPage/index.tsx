@@ -45,7 +45,10 @@ const VacanciesPage = () => {
           value={searchText}
           onChange={(e) => handleInputFilter(e.target.value)}
         />
-        <VacancieDropdown handleCategorySelect={handleCategorySelect} />
+        <VacancieDropdown
+          handleCategorySelect={handleCategorySelect}
+          selectedCategory={selectedCategory}
+        />
       </section>
 
       <section className="flex w-full flex-col items-center justify-center md:flex-row md:flex-wrap md:justify-between">
