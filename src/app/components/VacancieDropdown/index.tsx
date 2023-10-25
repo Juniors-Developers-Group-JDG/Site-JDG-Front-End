@@ -57,6 +57,22 @@ const VacancieDropdown = ({
                 </Menu.Item>
               )),
             )}
+
+            {selectedCategory && (
+              <Menu.Item>
+                {({ active }) => (
+                  <div
+                    onClick={() => handleCategorySelect(undefined)}
+                    className={classNames(
+                      active ? 'text-secondary' : 'text-secondary-500',
+                      'block px-4 py-2 text-sm',
+                    )}
+                  >
+                    Todas
+                  </div>
+                )}
+              </Menu.Item>
+            )}
           </section>
         </Menu.Items>
       </Transition>
