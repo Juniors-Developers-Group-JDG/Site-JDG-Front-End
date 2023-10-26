@@ -22,6 +22,12 @@ export async function fetcher<JSON = unknown>({
 
   const res = await fetch(url, {
     ...init,
+    headers: init?.body
+      ? {
+          'Content-Type': 'application/json',
+          ...init?.headers,
+        }
+      : init?.headers,
     body: init?.body ? JSON.stringify(init.body) : undefined,
   })
 
