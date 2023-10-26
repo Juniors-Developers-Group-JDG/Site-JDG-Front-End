@@ -7,7 +7,7 @@ export type CardVacanciesProps = {
   stack: string[]
   category: string
   description: string
-  date: string
+  endDate: string
 }
 
 export type VacancyFormProps = z.infer<typeof vacancyFormPropsSchema>
