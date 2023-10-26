@@ -8,4 +8,5 @@ export interface Vacancy {
   status: VacancyStatus
   stack: string[]
   candidates: string[]
+  endDate: string
 }
