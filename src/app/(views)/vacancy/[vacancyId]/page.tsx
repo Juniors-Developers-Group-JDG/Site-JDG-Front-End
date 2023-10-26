@@ -26,5 +26,5 @@ export default async function Vacancy({
     `${process.env.NEXT_PUBLIC_BACKEND_URL}/job-opportunities/${vacancyId}`,
   ).then((res) => res.json())
 
-  return <VacancyCardPage {...vacancy} />
+  return <VacancyCardPage {...vacancy} jobOpportunityId={vacancyId} />
 }
