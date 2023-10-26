@@ -1,10 +1,11 @@
 'use client'
+import { createCookie, getCookie } from '@/app/actions'
 import { fetcher } from '@/hooks/useFetch'
 import { vacancyFormPropsSchema } from '@/zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { format } from 'date-fns'
 import { useRouter } from 'next/navigation'
-import { useCallback } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
 import { AiFillGithub } from 'react-icons/ai'
 import { BsArrowLeft } from 'react-icons/bs'
@@ -22,6 +23,10 @@ export default function VacancyCardPage({
   title,
   jobOpportunityId,
 }: CardVacanciesProps) {
+  const [alreadyAppliedCookie, setAlreadyAppliedCookie] = useState<
+    boolean | undefined
+  >(undefined)
+
   const methods = useForm<VacancyFormProps>({
     mode: 'all',
     reValidateMode: 'onChange',
@@ -33,7 +38,7 @@ export default function VacancyCardPage({
   const onSubmit = async (data: VacancyFormProps) => {
     if (data) {
       try {
-        const res = await fetcher<{ msg: string }>({
+        const res = await fetcher<{ id: string } | undefined>({
           input: '/candidate',
           init: {
             method: 'POST',
@@ -45,9 +50,13 @@ export default function VacancyCardPage({
           },
         })
 
-        if (res.msg) {
-          throw new Error(res.msg)
+        if (!res?.id) {
+          throw new Error(String(res))
         }
+
+        await createCookie('already-applied', 'true')
+
+        setAlreadyAppliedCookie(true)
 
         toast.success('Candidatura realizada com sucesso')
 
@@ -64,6 +73,12 @@ export default function VacancyCardPage({
   const handleBack = useCallback(() => {
     route.back()
   }, [route])
+
+  useEffect(() => {
+    getCookie('already-applied').then((cookie) =>
+      setAlreadyAppliedCookie(!!cookie),
+    )
+  }, [])
 
   return (
     <section className="container flex flex-col items-center justify-center gap-5">
@@ -116,9 +131,18 @@ export default function VacancyCardPage({
         <FormProvider {...methods}>
           <form
             onSubmit={methods.handleSubmit(onSubmit)}
-            className="mt-10 w-full"
+            className="relative mt-10 w-full"
           >
-            <fieldset className="flex flex-col justify-around">
+            <div
+              data-show={alreadyAppliedCookie}
+              className="absolute left-1/2 top-1/2 z-10 hidden -translate-x-1/2 translate-y-1/2 text-3xl text-secondary data-[show=true]:block"
+            >
+              Candidatura já enviada!
+            </div>
+            <fieldset
+              disabled={alreadyAppliedCookie}
+              className="flex flex-col justify-around disabled:opacity-30"
+            >
               <section className="space-y-10">
                 <Input
                   type="text"
