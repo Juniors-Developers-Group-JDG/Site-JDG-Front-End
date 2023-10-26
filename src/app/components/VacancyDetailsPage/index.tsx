@@ -1,4 +1,5 @@
 'use client'
+import { fetcher } from '@/hooks/useFetch'
 import { vacancyFormPropsSchema } from '@/zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useRouter } from 'next/navigation'
@@ -18,6 +19,7 @@ export default function VacancyCardPage({
   stack,
   date,
   title,
+  jobOpportunityId,
 }: CardVacanciesProps) {
   const methods = useForm<VacancyFormProps>({
     mode: 'all',
@@ -25,10 +27,33 @@ export default function VacancyCardPage({
     resolver: zodResolver(vacancyFormPropsSchema),
   })
 
-  const onSubmit = (data: VacancyFormProps) => {
+  const onSubmit = async (data: VacancyFormProps) => {
     if (data) {
-      toast.success('Candidatura realizada com sucesso')
-      methods.reset()
+      try {
+        const res = await fetcher<{ msg: string }>({
+          input: '/candidate',
+          init: {
+            method: 'POST',
+            body: {
+              ...data,
+              jobOpportunities: jobOpportunityId,
+              cv: `${data.name}@cv`,
+            },
+          },
+        })
+
+        if (res.msg) {
+          throw new Error(res.msg)
+        }
+
+        toast.success('Candidatura realizada com sucesso')
+
+        methods.reset()
+      } catch (err) {
+        console.error({ err })
+
+        toast.error('Erro ao se candidatar')
+      }
     }
   }
 
@@ -111,7 +136,7 @@ export default function VacancyCardPage({
                 />
                 <Input
                   type="text"
-                  name="cellphone"
+                  name="telephone"
                   label="Telefone*"
                   icon={FiPhone}
                   placeholder="(64) 9 8135-2900"
