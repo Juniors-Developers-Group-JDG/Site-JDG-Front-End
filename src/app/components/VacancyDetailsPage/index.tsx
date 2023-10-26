@@ -2,6 +2,7 @@
 import { fetcher } from '@/hooks/useFetch'
 import { vacancyFormPropsSchema } from '@/zod'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { format } from 'date-fns'
 import { useRouter } from 'next/navigation'
 import { useCallback } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
@@ -17,7 +18,7 @@ import { CardVacanciesProps, VacancyFormProps } from './types'
 export default function VacancyCardPage({
   description,
   stack,
-  date,
+  endDate,
   title,
   jobOpportunityId,
 }: CardVacanciesProps) {
@@ -26,6 +27,8 @@ export default function VacancyCardPage({
     reValidateMode: 'onChange',
     resolver: zodResolver(vacancyFormPropsSchema),
   })
+
+  const parsedDate = format(new Date(endDate), 'dd/MM/yyyy')
 
   const onSubmit = async (data: VacancyFormProps) => {
     if (data) {
@@ -94,7 +97,7 @@ export default function VacancyCardPage({
             ))}
           </div>
           <span className="mt-5 text-xs text-secondary-50 xl:m-0 xl:text-base">
-            Inscrições até {date}
+            Inscrições até {parsedDate}
           </span>
         </article>
 
