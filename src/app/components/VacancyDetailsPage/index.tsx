@@ -189,8 +189,9 @@ export default function VacancyCardPage({
               </section>
 
               <button
+                disabled={alreadyAppliedCookie}
                 type="submit"
-                className="bg-gradient-btn mt-20 flex h-14 w-full cursor-pointer items-center justify-center rounded-lg border border-primary text-secondary-50 transition-all duration-300 hover:opacity-80"
+                className="bg-gradient-btn mt-20 flex h-14 w-full cursor-pointer items-center justify-center rounded-lg border border-primary text-secondary-50 transition-all duration-300 hover:opacity-80 disabled:cursor-default disabled:hover:opacity-100"
               >
                 Enviar
               </button>
