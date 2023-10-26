@@ -2,7 +2,7 @@ import { vacancyFormPropsSchema } from '@/zod'
 import { z } from 'zod'
 
 export type CardVacanciesProps = {
-  id: number
+  id: string
   title: string
   stack: string[]
   category: string
