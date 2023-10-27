@@ -1,4 +1,5 @@
 import CardBlog from '@/app/components/CardBlog'
+import postPlaceholderPng from '@/assets/postPlaceholder.png'
 import { Post } from '@/types/post'
 import { Metadata } from 'next'
 import Image from 'next/image'
@@ -50,7 +51,7 @@ export default async function Blog() {
           </Link>
         </article>
 
-        {posts[1].image && (
+        {posts[1].image ? (
           <figure className="h-full xl:w-1/2">
             <Image
               src={posts[1].image}
@@ -58,6 +59,17 @@ export default async function Blog() {
               className="h-full w-full object-cover"
               width={1000}
               height={1000}
+              priority
+            />
+          </figure>
+        ) : (
+          <figure className="w-full">
+            <Image
+              src={postPlaceholderPng}
+              alt="blog-thumb"
+              className="h-full w-full object-cover"
+              width={500}
+              height={500}
               priority
             />
           </figure>

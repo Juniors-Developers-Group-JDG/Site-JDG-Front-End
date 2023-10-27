@@ -1,4 +1,5 @@
 'use client'
+import postPlaceholderPng from '@/assets/postPlaceholder.png'
 import { format } from 'date-fns'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
@@ -33,7 +34,7 @@ const CardPost = ({
       />
 
       <article className="">
-        {image && (
+        {image ? (
           <figure className="h-96 w-full">
             <Image
               src={image}
@@ -41,6 +42,17 @@ const CardPost = ({
               height={1000}
               className="h-full w-full rounded-t-lg object-cover"
               alt="post-image"
+            />
+          </figure>
+        ) : (
+          <figure className="h-96 w-full">
+            <Image
+              src={postPlaceholderPng}
+              alt="post-image"
+              className="h-full w-full rounded-t-lg object-cover"
+              width={1000}
+              height={1000}
+              priority
             />
           </figure>
         )}

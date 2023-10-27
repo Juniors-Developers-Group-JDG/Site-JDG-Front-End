@@ -1,4 +1,5 @@
 'use client'
+import postPlaceholderPng from '@/assets/postPlaceholder.png'
 import { format } from 'date-fns'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
@@ -18,10 +19,21 @@ export default function CardBlog({ date, image, title, id }: CardBlogProps) {
       onClick={handlePushRoute}
       className="flex h-96 w-64 flex-col items-center justify-between gap-6 overflow-hidden rounded-2xl border border-secondary-850 bg-primary-900 transition-all ease-in-out hover:cursor-pointer hover:border-primary-400 md:w-72 xl:w-80"
     >
-      {image && (
+      {image ? (
         <figure className="w-full">
           <Image
             src={image}
+            alt="blog-thumb"
+            className="h-full w-full object-cover"
+            width={500}
+            height={500}
+            priority
+          />
+        </figure>
+      ) : (
+        <figure className="w-full">
+          <Image
+            src={postPlaceholderPng}
             alt="blog-thumb"
             className="h-full w-full object-cover"
             width={500}
