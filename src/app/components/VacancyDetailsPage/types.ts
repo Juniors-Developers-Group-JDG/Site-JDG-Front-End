@@ -1,16 +1,14 @@
-import { z } from 'zod'
 import { vacancyFormPropsSchema } from '@/zod'
+import { z } from 'zod'
 
 export type CardVacanciesProps = {
-  id: number
+  id: string
   title: string
-  techs: {
-    id: number
-    name: string
-  }[]
+  stack: string[]
   category: string
   description: string
-  date: string
+  endDate: string
+  jobOpportunityId: string
 }
 
 export type VacancyFormProps = z.infer<typeof vacancyFormPropsSchema>

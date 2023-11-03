@@ -1,10 +1,7 @@
 export type CardVacanciesProps = {
-  id: number
+  id: string
   title: string
-  techs: {
-    id: number
-    name: string
-  }[]
+  stack: string[]
   category: string
   description: string
 }

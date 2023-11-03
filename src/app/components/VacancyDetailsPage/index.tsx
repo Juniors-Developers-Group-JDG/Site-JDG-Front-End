@@ -1,34 +1,71 @@
 'use client'
-import Input from '../Input'
-import { useCallback } from 'react'
-import { toast } from 'react-toastify'
-import { BsArrowLeft } from 'react-icons/bs'
-import { useRouter } from 'next/navigation'
+import { createCookie, getCookie } from '@/app/actions'
+import { fetcher } from '@/hooks/useFetch'
 import { vacancyFormPropsSchema } from '@/zod'
-import { AiFillGithub } from 'react-icons/ai'
-import { MdOutlineEmail } from 'react-icons/md'
-import { FiPhone, FiLinkedin } from 'react-icons/fi'
-import { HiOutlineUserCircle } from 'react-icons/hi'
-import { useForm, FormProvider } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { format } from 'date-fns'
+import { useRouter } from 'next/navigation'
+import { useCallback, useEffect, useState } from 'react'
+import { FormProvider, useForm } from 'react-hook-form'
+import { AiFillGithub } from 'react-icons/ai'
+import { BsArrowLeft } from 'react-icons/bs'
+import { FiLinkedin, FiPhone } from 'react-icons/fi'
+import { HiOutlineUserCircle } from 'react-icons/hi'
+import { MdOutlineEmail } from 'react-icons/md'
+import { toast } from 'react-toastify'
+import Input from '../Input'
 import { CardVacanciesProps, VacancyFormProps } from './types'
 
 export default function VacancyCardPage({
   description,
-  techs,
-  date,
+  stack,
+  endDate,
   title,
+  jobOpportunityId,
 }: CardVacanciesProps) {
+  const [alreadyAppliedCookie, setAlreadyAppliedCookie] = useState<
+    boolean | undefined
+  >(undefined)
+
   const methods = useForm<VacancyFormProps>({
     mode: 'all',
     reValidateMode: 'onChange',
     resolver: zodResolver(vacancyFormPropsSchema),
   })
 
-  const onSubmit = (data: VacancyFormProps) => {
+  const parsedDate = format(new Date(endDate), 'dd/MM/yyyy')
+
+  const onSubmit = async (data: VacancyFormProps) => {
     if (data) {
-      toast.success('Candidatura realizada com sucesso')
-      methods.reset()
+      try {
+        const res = await fetcher<{ id: string } | undefined>({
+          input: '/candidate',
+          init: {
+            method: 'POST',
+            body: {
+              ...data,
+              jobOpportunities: jobOpportunityId,
+              cv: `${data.name}@cv`,
+            },
+          },
+        })
+
+        if (!res?.id) {
+          throw new Error(String(res))
+        }
+
+        await createCookie('already-applied', 'true')
+
+        setAlreadyAppliedCookie(true)
+
+        toast.success('Candidatura realizada com sucesso')
+
+        methods.reset()
+      } catch (err) {
+        console.error({ err })
+
+        toast.error('Erro ao se candidatar')
+      }
     }
   }
 
@@ -36,6 +73,12 @@ export default function VacancyCardPage({
   const handleBack = useCallback(() => {
     route.back()
   }, [route])
+
+  useEffect(() => {
+    getCookie('already-applied').then((cookie) =>
+      setAlreadyAppliedCookie(!!cookie),
+    )
+  }, [])
 
   return (
     <section className="container flex flex-col items-center justify-center gap-5">
@@ -53,14 +96,14 @@ export default function VacancyCardPage({
             <h1 className="text-xl font-semibold tracking-wider text-secondary">
               {title}
             </h1>
-            {techs.map((tech, index) => (
+            {stack.map((stack, index) => (
               <span
-                key={tech.id}
-                data-tech={tech.name}
+                key={stack}
+                data-tech={stack}
                 className="relative p-2 text-xs tracking-wider text-primary-400"
               >
-                {tech.name}
-                {index < techs.length - 1 && (
+                {stack}
+                {index < stack.length - 1 && (
                   <span className="absolute top-[5.5px] pl-[5.5px] text-primary-400">
                     .
                   </span>
@@ -69,7 +112,7 @@ export default function VacancyCardPage({
             ))}
           </div>
           <span className="mt-5 text-xs text-secondary-50 xl:m-0 xl:text-base">
-            Inscrições até {date}
+            Inscrições até {parsedDate}
           </span>
         </article>
 
@@ -88,31 +131,43 @@ export default function VacancyCardPage({
         <FormProvider {...methods}>
           <form
             onSubmit={methods.handleSubmit(onSubmit)}
-            className="mt-10 w-full"
+            className="relative mt-10 w-full"
           >
-            <fieldset className="flex flex-col justify-around">
+            <div
+              data-show={alreadyAppliedCookie}
+              className="absolute left-1/2 top-1/2 z-10 hidden -translate-x-1/2 translate-y-1/2 text-3xl text-secondary data-[show=true]:block"
+            >
+              Candidatura já enviada!
+            </div>
+            <fieldset
+              disabled={alreadyAppliedCookie}
+              className="flex flex-col justify-around disabled:opacity-30"
+            >
               <section className="space-y-10">
                 <Input
                   type="text"
                   name="name"
-                  label="Nome completo"
+                  label="Nome completo*"
                   icon={HiOutlineUserCircle}
                   placeholder="Ana Clara Araujo"
+                  required
                 />
 
                 <Input
                   type="email"
                   name="email"
-                  label="Email"
+                  label="Email*"
                   icon={MdOutlineEmail}
                   placeholder="anaclara@gmail.com"
+                  required
                 />
                 <Input
                   type="text"
-                  name="cellphone"
-                  label="Telefone"
+                  name="telephone"
+                  label="Telefone*"
                   icon={FiPhone}
                   placeholder="(64) 9 8135-2900"
+                  required
                 />
 
                 <section className="flex flex-col gap-8 md:flex-row">
@@ -134,8 +189,9 @@ export default function VacancyCardPage({
               </section>
 
               <button
+                disabled={alreadyAppliedCookie}
                 type="submit"
-                className="bg-gradient-btn mt-20 flex h-14 w-full cursor-pointer items-center justify-center rounded-lg border border-primary text-secondary-50 transition-all duration-300 hover:opacity-80"
+                className="bg-gradient-btn mt-20 flex h-14 w-full cursor-pointer items-center justify-center rounded-lg border border-primary text-secondary-50 transition-all duration-300 hover:opacity-80 disabled:cursor-default disabled:hover:opacity-100"
               >
                 Enviar
               </button>

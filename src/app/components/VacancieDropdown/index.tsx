@@ -1,11 +1,14 @@
-import { Fragment } from 'react'
-import { BiFilter } from 'react-icons/bi'
+import { Categories } from '@/mocks/Categories'
 import { Menu, Transition } from '@headlessui/react'
 import { ChevronDownIcon } from '@heroicons/react/20/solid'
-import { Categories } from '@/mocks/Categories'
+import { Fragment } from 'react'
+import { BiFilter } from 'react-icons/bi'
 import { VacancieDropdownProps } from './types'
 
-const VacancieDropdown = ({ handleCategorySelect }: VacancieDropdownProps) => {
+const VacancieDropdown = ({
+  handleCategorySelect,
+  selectedCategory,
+}: VacancieDropdownProps) => {
   const classNames = (...classes: string[]) => {
     return classes.filter(Boolean).join(' ')
   }
@@ -18,7 +21,7 @@ const VacancieDropdown = ({ handleCategorySelect }: VacancieDropdownProps) => {
       <section>
         <Menu.Button className="inline-flex w-full items-center justify-between gap-x-1.5 rounded-md bg-primary-900 px-4 py-3 text-sm text-secondary shadow-sm hover:bg-zinc-900 md:flex xl:w-60">
           <BiFilter className="h-5 w-5" />
-          Filtrar por
+          {selectedCategory || 'Filtrar por'}
           <ChevronDownIcon
             className="-mr-1 h-5 w-5 text-gray-400"
             aria-hidden="true"
@@ -53,6 +56,22 @@ const VacancieDropdown = ({ handleCategorySelect }: VacancieDropdownProps) => {
                   )}
                 </Menu.Item>
               )),
+            )}
+
+            {selectedCategory && (
+              <Menu.Item>
+                {({ active }) => (
+                  <div
+                    onClick={() => handleCategorySelect(undefined)}
+                    className={classNames(
+                      active ? 'text-secondary' : 'text-secondary-500',
+                      'block px-4 py-2 text-sm',
+                    )}
+                  >
+                    Todas
+                  </div>
+                )}
+              </Menu.Item>
             )}
           </section>
         </Menu.Items>
