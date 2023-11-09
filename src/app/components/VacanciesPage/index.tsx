@@ -15,7 +15,7 @@ const VacanciesPage = () => {
 
   const { vacancies, isLoading } = useVacancies()
 
-  console.log({ vacancies })
+  // console.log({ vacancies })
 
   const filteredVacancies = vacancies.filter((vacancy) => {
     const categoryMatch =
