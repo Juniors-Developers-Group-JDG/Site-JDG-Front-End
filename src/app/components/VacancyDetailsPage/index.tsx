@@ -5,7 +5,7 @@ import { vacancyFormPropsSchema } from '@/zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { format } from 'date-fns'
 import { useRouter } from 'next/navigation'
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
 import { AiFillGithub } from 'react-icons/ai'
 import { BsArrowLeft } from 'react-icons/bs'
@@ -24,8 +24,16 @@ export default function VacancyCardPage({
   jobOpportunityId,
 }: CardVacanciesProps) {
   const [alreadyAppliedCookie, setAlreadyAppliedCookie] = useState<
-    boolean | undefined
+    string | undefined
   >(undefined)
+
+  const alreadyAppliedToCurrentOpportunity = useMemo(
+    () =>
+      alreadyAppliedCookie
+        ? alreadyAppliedCookie.split(',').includes(jobOpportunityId)
+        : false,
+    [alreadyAppliedCookie, jobOpportunityId],
+  )
 
   const methods = useForm<VacancyFormProps>({
     mode: 'all',
@@ -54,9 +62,11 @@ export default function VacancyCardPage({
           throw new Error(String(res))
         }
 
-        await createCookie('already-applied', 'true')
+        const cookie = `${alreadyAppliedCookie || ''}${jobOpportunityId},`
 
-        setAlreadyAppliedCookie(true)
+        await createCookie('already-applied', cookie)
+
+        setAlreadyAppliedCookie(cookie)
 
         toast.success('Candidatura realizada com sucesso')
 
@@ -76,7 +86,7 @@ export default function VacancyCardPage({
 
   useEffect(() => {
     getCookie('already-applied').then((cookie) =>
-      setAlreadyAppliedCookie(!!cookie),
+      setAlreadyAppliedCookie(cookie),
     )
   }, [])
 
@@ -140,7 +150,7 @@ export default function VacancyCardPage({
               Candidatura já enviada!
             </div>
             <fieldset
-              disabled={alreadyAppliedCookie}
+              disabled={alreadyAppliedToCurrentOpportunity}
               className="flex flex-col justify-around disabled:opacity-30"
             >
               <section className="space-y-10">
@@ -189,7 +199,7 @@ export default function VacancyCardPage({
               </section>
 
               <button
-                disabled={alreadyAppliedCookie}
+                disabled={alreadyAppliedToCurrentOpportunity}
                 type="submit"
                 className="bg-gradient-btn mt-20 flex h-14 w-full cursor-pointer items-center justify-center rounded-lg border border-primary text-secondary-50 transition-all duration-300 hover:opacity-80 disabled:cursor-default disabled:hover:opacity-100"
               >
