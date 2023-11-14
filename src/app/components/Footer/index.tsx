@@ -7,13 +7,21 @@ import FooterCopyright from '../FooterCopyright'
 import { SlSocialLinkedin } from 'react-icons/sl'
 import { MdWhatsapp, MdOutlineMailOutline } from 'react-icons/md'
 import { usePathname } from 'next/navigation'
+import { whatsappNumber, whatsappText } from '@/utils/constants'
+import { HiArrowUp } from 'react-icons/hi'
 
 const Footer = () => {
   const path = usePathname()
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    })
+  }
   return (
     <footer
       id="contact"
-      className="bg-gradient-footer flex w-full items-center justify-center bg-primary pt-20"
+      className="bg-gradient-footer relative flex w-full items-center justify-center bg-primary pt-20"
     >
       <FooterContainer>
         <section className="flex w-full flex-wrap items-center justify-between md:items-start">
@@ -86,7 +94,7 @@ const Footer = () => {
           socialMedia={[
             {
               social_name: '+55 (11) 94700-7927',
-              href: '#',
+              href: `https://wa.me/${whatsappNumber}?text=${whatsappText}`,
               icon: MdWhatsapp,
             },
             {
@@ -102,6 +110,13 @@ const Footer = () => {
           ]}
         />
         <FooterCopyright />
+        <span
+          onClick={scrollToTop}
+          aria-label="Scroll to top"
+          className="fixed bottom-12 right-6 z-50 flex h-12 w-12 cursor-pointer items-center justify-center rounded-full bg-primary-400 p-2 hover:opacity-50"
+        >
+          <HiArrowUp size={20} />
+        </span>
       </FooterContainer>
     </footer>
   )
