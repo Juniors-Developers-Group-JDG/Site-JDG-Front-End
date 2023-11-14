@@ -1,39 +1,27 @@
-'use client'
-import { usePathname } from 'next/navigation'
 import RouterLinks from '../RouterLinks'
 import { NavbarTypeProps } from './types'
 import { Bars3Icon } from '@heroicons/react/24/outline'
+import { usePathname } from 'next/navigation'
 
 const Navbar = ({ openModal }: NavbarTypeProps) => {
   const path = usePathname()
+
+  const menuItems = [
+    { href: '/', text: 'Início' },
+    { href: path === '/' ? '#about-us' : '/#about-us', text: 'Sobre' },
+    { href: '/vacancies', text: 'Vagas' },
+    { href: '/blog', text: 'Blog' },
+    { href: path === '/' ? '#projects' : '/#projects', text: 'Projetos' },
+  ]
+
   return (
     <nav className="flex items-center justify-between">
       <ul className="hidden md:flex md:items-center md:justify-between">
-        <li className="m-2 p-2">
-          <RouterLinks href="/" text="Início" />
-        </li>
-
-        <li className="m-2 p-2">
-          <RouterLinks
-            href={`${path === '/' ? '#about-us' : '/#about-us'}`}
-            text="Sobre"
-          />
-        </li>
-
-        <li className="m-2 p-2">
-          <RouterLinks href="/vacancies" text="Vagas" />
-        </li>
-
-        <li className="m-2 p-2">
-          <RouterLinks href="/blog" text="Blog" />
-        </li>
-
-        <li className="m-2 p-2">
-          <RouterLinks
-            href={`${path === '/' ? '#projects' : '/#projects'}`}
-            text="Projetos"
-          />
-        </li>
+        {menuItems.map((item, index) => (
+          <li key={index} className="m-2 p-2">
+            <RouterLinks href={item.href} text={item.text} />
+          </li>
+        ))}
       </ul>
 
       <Bars3Icon

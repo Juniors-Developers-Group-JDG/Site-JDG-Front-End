@@ -22,7 +22,7 @@ export default function About() {
   }
 
   return (
-    <section className="container mb-10 mt-28">
+    <section className="container mb-10 mt-28" id="about-us">
       <Title text="Sobre" />
       <div className="flex flex-col gap-10 xl:flex-row xl:items-center xl:justify-between">
         <article className="w-full xl:w-[45.5rem]">
