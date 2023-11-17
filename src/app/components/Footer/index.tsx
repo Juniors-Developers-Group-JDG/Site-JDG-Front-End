@@ -6,18 +6,32 @@ import FooterSocialLinks from '../FooterSocialLinks'
 import FooterCopyright from '../FooterCopyright'
 import { SlSocialLinkedin } from 'react-icons/sl'
 import { MdWhatsapp, MdOutlineMailOutline } from 'react-icons/md'
-import { usePathname } from 'next/navigation'
+
 import { whatsappNumber, whatsappText } from '@/utils/constants'
 import { HiArrowUp } from 'react-icons/hi'
+import { useEffect, useState } from 'react'
+import { links, terms, vacancies } from './constants'
 
 const Footer = () => {
-  const path = usePathname()
+  const [showScrollToTop, setShowScrollToTop] = useState(false)
+
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
       behavior: 'smooth',
     })
   }
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrolled = window.scrollY > 100
+      setShowScrollToTop(scrolled)
+    }
+
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
   return (
     <footer
       id="contact"
@@ -27,67 +41,11 @@ const Footer = () => {
         <section className="flex w-full flex-wrap items-center justify-between md:items-start">
           <FooterLogo />
           <aside className="md:mt0 mt-10 flex flex-wrap items-start justify-start md:flex-nowrap md:justify-around">
-            <FooterNavLinks
-              title="Links"
-              links={[
-                {
-                  name: 'Início',
-                  href: '/',
-                },
-                {
-                  name: 'Sobre',
-                  href: `${path === '/' ? '#about-us' : '/#about-us'}`,
-                },
-                {
-                  name: 'Blog',
-                  href: '/blog',
-                },
-                {
-                  name: 'Projetos',
-                  href: `${path === '/' ? '#projects' : '/#projects'}`,
-                },
-              ]}
-            />
+            <FooterNavLinks title="Links" links={links} />
 
-            <FooterNavLinks
-              title="Vagas"
-              links={[
-                {
-                  name: 'Front-End',
-                  href: '/vacancies',
-                },
-                {
-                  name: 'Back-End',
-                  href: '/vacancies',
-                },
-                {
-                  name: 'Mobile',
-                  href: '/vacancies',
-                },
-                {
-                  name: 'UX/UI',
-                  href: '/vacancies',
-                },
-              ]}
-            />
+            <FooterNavLinks title="Vagas" links={vacancies} />
 
-            <FooterNavLinks
-              title="Empresa"
-              links={[
-                {
-                  name: 'Privacidade',
-                  href: '#',
-                },
-                {
-                  name: 'Termos e condições de uso',
-                  href: '#',
-                },
-                {
-                  name: 'Direitos reservados',
-                  href: '#',
-                },
-              ]}
-            />
+            <FooterNavLinks title="Empresa" links={terms} />
           </aside>
         </section>
         <FooterSocialLinks
@@ -110,13 +68,15 @@ const Footer = () => {
           ]}
         />
         <FooterCopyright />
-        <span
-          onClick={scrollToTop}
-          aria-label="Scroll to top"
-          className="fixed bottom-12 right-6 z-50 flex h-12 w-12 cursor-pointer items-center justify-center rounded-full bg-primary-400 p-2 hover:opacity-50"
-        >
-          <HiArrowUp size={20} />
-        </span>
+        {showScrollToTop && (
+          <span
+            onClick={scrollToTop}
+            aria-label="Scroll to top"
+            className="fixed bottom-12 right-6 z-50 flex h-12 w-12 cursor-pointer items-center justify-center rounded-full bg-primary-400 p-2 hover:opacity-50"
+          >
+            <HiArrowUp size={20} />
+          </span>
+        )}
       </FooterContainer>
     </footer>
   )

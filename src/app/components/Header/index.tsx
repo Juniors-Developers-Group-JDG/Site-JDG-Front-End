@@ -14,7 +14,7 @@ const Header = () => {
   const { modal, openModal, closeModal } = useToggle()
 
   return (
-    <header className="container fixed z-50 flex h-20 w-full items-center justify-between bg-primary transition-all">
+    <header className="container sticky top-0 z-50 flex h-20 w-full items-center justify-between bg-primary transition-all">
       <Link href="/" className="flex" data-testid="logo-link">
         <figure className="flex h-10 w-10 items-center justify-center rounded-md bg-secondary">
           <Image
