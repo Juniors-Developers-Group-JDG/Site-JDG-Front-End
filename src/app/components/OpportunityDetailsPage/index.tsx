@@ -1,7 +1,7 @@
 'use client'
 import { createCookie, getCookie } from '@/app/actions'
 import { fetcher } from '@/hooks/useFetch'
-import { vacancyFormPropsSchema } from '@/zod'
+import { opportunityFormPropsSchema } from '@/zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { format } from 'date-fns'
 import { useRouter } from 'next/navigation'
@@ -14,15 +14,15 @@ import { HiOutlineUserCircle } from 'react-icons/hi'
 import { MdOutlineEmail } from 'react-icons/md'
 import { toast } from 'react-toastify'
 import Input from '../Input'
-import { CardVacanciesProps, VacancyFormProps } from './types'
+import { CardOpportunitiesProps, OpportunityFormProps } from './types'
 
-export default function VacancyCardPage({
+export default function OpportunityCardPage({
   description,
   stack,
   endDate,
   title,
   jobOpportunityId,
-}: CardVacanciesProps) {
+}: CardOpportunitiesProps) {
   const [alreadyAppliedCookie, setAlreadyAppliedCookie] = useState<
     string | undefined
   >(undefined)
@@ -35,15 +35,15 @@ export default function VacancyCardPage({
     [alreadyAppliedCookie, jobOpportunityId],
   )
 
-  const methods = useForm<VacancyFormProps>({
+  const methods = useForm<OpportunityFormProps>({
     mode: 'all',
     reValidateMode: 'onChange',
-    resolver: zodResolver(vacancyFormPropsSchema),
+    resolver: zodResolver(opportunityFormPropsSchema),
   })
 
   const parsedDate = format(new Date(endDate), 'dd/MM/yyyy')
 
-  const onSubmit = async (data: VacancyFormProps) => {
+  const onSubmit = async (data: OpportunityFormProps) => {
     if (data) {
       try {
         const res = await fetcher<{ id: string } | undefined>({

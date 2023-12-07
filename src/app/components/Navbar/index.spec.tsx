@@ -1,5 +1,5 @@
-import Navbar from '.'
 import { fireEvent, render } from '@testing-library/react'
+import Navbar from '.'
 
 describe('<Navbar/>', () => {
   it('should render Navbar component', () => {
@@ -38,13 +38,13 @@ describe('<Navbar/>', () => {
   //   const { getByRole } = render(<Navbar openModal={openModalMock} />)
   //   const homeLink = getByRole('link', { name: /início/i })
   //   const aboutLink = getByRole('link', { name: /sobre/i })
-  //   const vacanciesLink = getByRole('link', { name: /vagas/i })
+  //   const opportunitiesLink = getByRole('link', { name: /vagas/i })
   //   const blogLink = getByRole('link', { name: /blog/i })
   //   const projectsLink = getByRole('link', { name: /projetos/i })
 
   //   expect(homeLink).toHaveAttribute('href', '/')
   //   expect(aboutLink).toHaveAttribute('href', '#about-us')
-  //   expect(vacanciesLink).toHaveAttribute('href', '/views/vacancies')
+  //   expect(opportunitiesLink).toHaveAttribute('href', '/views/opportunities')
   //   expect(blogLink).toHaveAttribute('href', '/views/blog')
   //   expect(projectsLink).toHaveAttribute('href', '#projects')
   // })

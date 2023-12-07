@@ -1,8 +1,8 @@
+import { XMarkIcon } from '@heroicons/react/24/outline'
+import { usePathname } from 'next/navigation'
 import { useEffect } from 'react'
 import RouterLinks from '../RouterLinks'
 import { NavbarMobileTypeProps } from './types'
-import { XMarkIcon } from '@heroicons/react/24/outline'
-import { usePathname } from 'next/navigation'
 
 const NavbarMobile = ({ modal, closeModal }: NavbarMobileTypeProps) => {
   const path = usePathname()
@@ -34,7 +34,7 @@ const NavbarMobile = ({ modal, closeModal }: NavbarMobileTypeProps) => {
 
             <li className="m-2 w-full p-2 text-center transition-all hover:scale-105 hover:bg-secondary-800">
               <RouterLinks
-                href="/vacancies"
+                href="/opportunities"
                 text="Vagas"
                 onClick={closeModal}
               />

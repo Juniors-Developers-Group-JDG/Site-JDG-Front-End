@@ -1,10 +1,10 @@
 import { BiSearch } from 'react-icons/bi'
-import { VacancieInputFilterProps } from './types'
+import { OpportunitieInputFilterProps } from './types'
 
-export const VacancieInputFilter = ({
+export const OpportunitieInputFilter = ({
   value,
   onChange,
-}: VacancieInputFilterProps) => {
+}: OpportunitieInputFilterProps) => {
   return (
     <section className="relative w-full">
       <input

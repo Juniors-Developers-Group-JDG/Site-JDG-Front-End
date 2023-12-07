@@ -1,19 +1,23 @@
-import VacancieDropdown from '.'
 import { Categories } from '@/mocks/Categories'
-import { render, screen, fireEvent, waitFor } from '@testing-library/react'
+import { fireEvent, render, screen, waitFor } from '@testing-library/react'
+import OpportunitieDropdown from '.'
 
 const mockHandleCategorySelect = jest.fn()
 
-describe('<VacancieDropdown />', () => {
+describe('<OpportunitieDropdown />', () => {
   it('should render the dropdown button correctly', () => {
-    render(<VacancieDropdown handleCategorySelect={mockHandleCategorySelect} />)
+    render(
+      <OpportunitieDropdown handleCategorySelect={mockHandleCategorySelect} />,
+    )
     const dropdownButton = screen.getByText('Filtrar por')
     expect(dropdownButton).toBeInTheDocument()
     expect(dropdownButton).toHaveClass('text-sm text-secondary')
   })
 
   it('should open the dropdown menu on button click', async () => {
-    render(<VacancieDropdown handleCategorySelect={mockHandleCategorySelect} />)
+    render(
+      <OpportunitieDropdown handleCategorySelect={mockHandleCategorySelect} />,
+    )
     const dropdownButton = screen.getByText('Filtrar por')
 
     fireEvent.click(dropdownButton)
@@ -25,7 +29,9 @@ describe('<VacancieDropdown />', () => {
   })
 
   it('should render category options correctly', async () => {
-    render(<VacancieDropdown handleCategorySelect={mockHandleCategorySelect} />)
+    render(
+      <OpportunitieDropdown handleCategorySelect={mockHandleCategorySelect} />,
+    )
     const dropdownButton = screen.getByText('Filtrar por')
     fireEvent.click(dropdownButton)
 
@@ -39,7 +45,9 @@ describe('<VacancieDropdown />', () => {
   })
 
   it('should call handleCategorySelect when a category is selected', async () => {
-    render(<VacancieDropdown handleCategorySelect={mockHandleCategorySelect} />)
+    render(
+      <OpportunitieDropdown handleCategorySelect={mockHandleCategorySelect} />,
+    )
     const dropdownButton = screen.getByText('Filtrar por')
     fireEvent.click(dropdownButton)
 

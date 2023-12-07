@@ -1,11 +1,11 @@
-export type VacancyStatus = 'OPENED' | 'RECRUITING' | 'CLOSED'
+export type OpportunityStatus = 'OPENED' | 'RECRUITING' | 'CLOSED'
 
-export interface Vacancy {
+export interface Opportunity {
   id: string
   title: string
   description: string
   category: string
-  status: VacancyStatus
+  status: OpportunityStatus
   stack: string[]
   candidates: string[]
   endDate: string

@@ -1,7 +1,7 @@
-import RouterLinks from '../RouterLinks'
-import { NavbarTypeProps } from './types'
 import { Bars3Icon } from '@heroicons/react/24/outline'
 import { usePathname } from 'next/navigation'
+import RouterLinks from '../RouterLinks'
+import { NavbarTypeProps } from './types'
 
 const Navbar = ({ openModal }: NavbarTypeProps) => {
   const path = usePathname()
@@ -9,7 +9,7 @@ const Navbar = ({ openModal }: NavbarTypeProps) => {
   const menuItems = [
     { href: '/', text: 'Início' },
     { href: path === '/' ? '#about-us' : '/#about-us', text: 'Sobre' },
-    { href: '/vacancies', text: 'Vagas' },
+    { href: '/opportunities', text: 'Vagas' },
     { href: '/blog', text: 'Blog' },
     { href: path === '/' ? '#projects' : '/#projects', text: 'Projetos' },
   ]

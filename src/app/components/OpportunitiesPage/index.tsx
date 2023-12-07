@@ -1,30 +1,30 @@
 'use client'
-import { useVacancies } from '@/hooks/useVacancies'
+import { useOpportunities } from '@/hooks/useOpportunities'
 import { useState } from 'react'
-import CardVacancies from '../CardVacancies'
+import CardOpportunities from '../CardOpportunity'
 import { LoadingFallback } from '../LoadingFallback'
-import VacancieDropdown from '../VacancieDropdown'
-import { VacancieInputFilter } from '../VacancieInputFilter'
-import VacanciesHeader from '../VacanciesHeader'
+import OpportunitiesHeader from '../OpportunitiesHeader'
+import OpportunitieDropdown from '../OpportunityDropdown'
+import { OpportunitieInputFilter } from '../OpportunityInputFilter'
 
-const VacanciesPage = () => {
+const OpportunitiesPage = () => {
   const [searchText, setSearchText] = useState('')
   const [selectedCategory, setSelectedCategory] = useState<string | undefined>(
     '',
   )
 
-  const { vacancies, isLoading } = useVacancies()
+  const { opportunities, isLoading } = useOpportunities()
 
-  // console.log({ vacancies })
+  // console.log({ opportunities })
 
-  const filteredVacancies = vacancies.filter((vacancy) => {
+  const filteredOpportunities = opportunities.filter((opportunity) => {
     const categoryMatch =
       !selectedCategory ||
-      vacancy.category.toLowerCase() === selectedCategory.toLowerCase()
+      opportunity.category.toLowerCase() === selectedCategory.toLowerCase()
     const textMatch =
       !searchText ||
       (typeof searchText === 'string' &&
-        vacancy.title.toLowerCase().includes(searchText.toLowerCase()))
+        opportunity.title.toLowerCase().includes(searchText.toLowerCase()))
 
     return categoryMatch && textMatch
   })
@@ -41,16 +41,16 @@ const VacanciesPage = () => {
 
   return (
     <section
-      data-testid="vacancies-page"
+      data-testid="opportunities-page"
       className="container flex flex-col items-center justify-center"
     >
-      <VacanciesHeader />
+      <OpportunitiesHeader />
       <section className="mb-10 mt-20 flex w-full flex-col items-end justify-between gap-4 md:items-center lg:flex-row">
-        <VacancieInputFilter
+        <OpportunitieInputFilter
           value={searchText}
           onChange={(e) => handleInputFilter(e.target.value)}
         />
-        <VacancieDropdown
+        <OpportunitieDropdown
           handleCategorySelect={handleCategorySelect}
           selectedCategory={selectedCategory}
         />
@@ -59,9 +59,9 @@ const VacanciesPage = () => {
       <section className="flex w-full flex-col items-center justify-center md:flex-row md:flex-wrap md:justify-between">
         {isLoading ? (
           <LoadingFallback />
-        ) : filteredVacancies.length > 0 ? (
-          filteredVacancies.map((vacancy) => (
-            <CardVacancies key={vacancy.id} {...vacancy} />
+        ) : filteredOpportunities.length > 0 ? (
+          filteredOpportunities.map((opportunity) => (
+            <CardOpportunities key={opportunity.id} {...opportunity} />
           ))
         ) : (
           <p className="w-full text-center text-2xl text-secondary opacity-70">
@@ -73,4 +73,4 @@ const VacanciesPage = () => {
   )
 }
 
-export default VacanciesPage
+export default OpportunitiesPage

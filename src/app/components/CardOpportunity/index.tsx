@@ -1,17 +1,17 @@
 'use client'
 import { useRouter } from 'next/navigation'
 import { useCallback } from 'react'
-import { CardVacanciesProps } from './types'
+import { CardOpportunitiesProps } from './types'
 
-const CardVacancies = ({
+const CardOpportunities = ({
   stack,
   title,
   description,
   id,
-}: CardVacanciesProps) => {
+}: CardOpportunitiesProps) => {
   const route = useRouter()
   const handlePushRoute = useCallback(() => {
-    route.push(`/vacancy/${id}`)
+    route.push(`/opportunity/${id}`)
   }, [id, route])
   return (
     <section className="min-w-96 my-2 h-full w-full rounded-lg border border-l-4 border-primary border-y-transparent border-r-transparent bg-primary-900 p-4 xl:w-[30rem]">
@@ -51,4 +51,4 @@ const CardVacancies = ({
   )
 }
 
-export default CardVacancies
+export default CardOpportunities

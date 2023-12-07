@@ -17,22 +17,22 @@ export const links = [
   },
 ]
 
-export const vacancies = [
+export const opportunities = [
   {
     name: 'Front-End',
-    href: '/vacancies',
+    href: '/opportunities',
   },
   {
     name: 'Back-End',
-    href: '/vacancies',
+    href: '/opportunities',
   },
   {
     name: 'Mobile',
-    href: '/vacancies',
+    href: '/opportunities',
   },
   {
     name: 'UX/UI',
-    href: '/vacancies',
+    href: '/opportunities',
   },
 ]
 

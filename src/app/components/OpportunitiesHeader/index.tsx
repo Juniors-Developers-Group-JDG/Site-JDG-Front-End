@@ -1,7 +1,7 @@
-const VacanciesHeader = () => {
+const OpportunitiesHeader = () => {
   return (
     <header
-      data-testid="vacancies-header-text"
+      data-testid="opportunities-header-text"
       className="mt-10 flex flex-col items-center justify-center"
     >
       <h1 className="my-4 flex flex-col items-center justify-center text-xl font-bold tracking-wider text-primary-400 md:text-3xl">
@@ -15,4 +15,4 @@ const VacanciesHeader = () => {
   )
 }
 
-export default VacanciesHeader
+export default OpportunitiesHeader

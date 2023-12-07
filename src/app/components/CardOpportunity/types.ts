@@ -1,4 +1,4 @@
-export type CardVacanciesProps = {
+export type CardOpportunitiesProps = {
   id: string
   title: string
   stack: string[]
