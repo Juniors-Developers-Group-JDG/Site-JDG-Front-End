@@ -1,15 +1,15 @@
-import VacanciesHeader from '.'
 import { render, screen } from '@testing-library/react'
+import OpportunitiesHeader from '.'
 
-describe('<VacanciesHeader/>', () => {
+describe('<OpportunitiesHeader/>', () => {
   it('should render the component', () => {
-    render(<VacanciesHeader />)
+    render(<OpportunitiesHeader />)
 
-    expect(screen.getByTestId('vacancies-header-text')).toBeInTheDocument()
+    expect(screen.getByTestId('opportunities-header-text')).toBeInTheDocument()
   })
 
   it('should display the main title correctly', () => {
-    render(<VacanciesHeader />)
+    render(<OpportunitiesHeader />)
 
     const mainTitle = screen.getByRole('heading', {
       name: /Encontre sua vaga voluntária aqui!/i,
@@ -19,7 +19,7 @@ describe('<VacanciesHeader/>', () => {
   })
 
   it('should display the secondary title correctly', () => {
-    render(<VacanciesHeader />)
+    render(<OpportunitiesHeader />)
 
     expect(
       screen.getByText('Faça parte do Juniors Developers Group:'),
@@ -30,9 +30,9 @@ describe('<VacanciesHeader/>', () => {
   })
 
   it('should have the correct styling', () => {
-    render(<VacanciesHeader />)
+    render(<OpportunitiesHeader />)
 
-    const headerElement = screen.getByTestId('vacancies-header-text')
+    const headerElement = screen.getByTestId('opportunities-header-text')
     expect(headerElement).toHaveClass('mt-10')
     expect(headerElement).toHaveClass('flex')
   })

@@ -3,12 +3,12 @@ import { Menu, Transition } from '@headlessui/react'
 import { ChevronDownIcon } from '@heroicons/react/20/solid'
 import { Fragment } from 'react'
 import { BiFilter } from 'react-icons/bi'
-import { VacancieDropdownProps } from './types'
+import { OpportunitieDropdownProps } from './types'
 
-const VacancieDropdown = ({
+const OpportunitieDropdown = ({
   handleCategorySelect,
   selectedCategory,
-}: VacancieDropdownProps) => {
+}: OpportunitieDropdownProps) => {
   const classNames = (...classes: string[]) => {
     return classes.filter(Boolean).join(' ')
   }
@@ -80,4 +80,4 @@ const VacancieDropdown = ({
   )
 }
 
-export default VacancieDropdown
+export default OpportunitieDropdown

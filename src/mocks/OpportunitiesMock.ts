@@ -1,4 +1,4 @@
-export const VacancyMock = {
+export const OpportunityMock = {
   id: 1,
   title: 'Desenvolvedor Front-End',
   techs: [

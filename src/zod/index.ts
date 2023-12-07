@@ -1,6 +1,6 @@
 import { z } from 'zod'
 
-export const vacancyFormPropsSchema = z.object({
+export const opportunityFormPropsSchema = z.object({
   name: z
     .string({ required_error: 'Nome obrigatório' })
     .min(1, 'Nome obrigatório'),

@@ -1,4 +1,4 @@
-export const Vacancies = [
+export const Opportunities = [
   {
     id: 1,
     title: 'Desenvolvedor Front-End',

@@ -1,16 +1,16 @@
 'use client'
-import FooterLogo from '../FooterLogo'
+import { MdOutlineMailOutline, MdWhatsapp } from 'react-icons/md'
+import { SlSocialLinkedin } from 'react-icons/sl'
 import FooterContainer from '../FooterContainer'
+import FooterCopyright from '../FooterCopyright'
+import FooterLogo from '../FooterLogo'
 import FooterNavLinks from '../FooterNavLinks'
 import FooterSocialLinks from '../FooterSocialLinks'
-import FooterCopyright from '../FooterCopyright'
-import { SlSocialLinkedin } from 'react-icons/sl'
-import { MdWhatsapp, MdOutlineMailOutline } from 'react-icons/md'
 
 import { whatsappNumber, whatsappText } from '@/utils/constants'
-import { HiArrowUp } from 'react-icons/hi'
 import { useEffect, useState } from 'react'
-import { links, terms, vacancies } from './constants'
+import { HiArrowUp } from 'react-icons/hi'
+import { links, opportunities, terms } from './constants'
 
 const Footer = () => {
   const [showScrollToTop, setShowScrollToTop] = useState(false)
@@ -43,7 +43,7 @@ const Footer = () => {
           <aside className="md:mt0 mt-10 flex flex-wrap items-start justify-start md:flex-nowrap md:justify-around">
             <FooterNavLinks title="Links" links={links} />
 
-            <FooterNavLinks title="Vagas" links={vacancies} />
+            <FooterNavLinks title="Vagas" links={opportunities} />
 
             <FooterNavLinks title="Empresa" links={terms} />
           </aside>

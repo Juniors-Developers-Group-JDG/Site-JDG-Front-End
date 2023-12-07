@@ -1,12 +1,14 @@
-import { VacancieInputFilter } from '.'
-import { render, screen, fireEvent } from '@testing-library/react'
+import { fireEvent, render, screen } from '@testing-library/react'
+import { OpportunitieInputFilter } from '.'
 
-describe('<VacancieInputFilter />', () => {
+describe('<OpportunitieInputFilter />', () => {
   it('should render the input field and label correctly', () => {
     const handleChange = jest.fn()
     const inputValue = 'Frontend Developer'
 
-    render(<VacancieInputFilter value={inputValue} onChange={handleChange} />)
+    render(
+      <OpportunitieInputFilter value={inputValue} onChange={handleChange} />,
+    )
 
     const inputElement = screen.getByPlaceholderText(
       'Qual posição você está procurando?',
@@ -32,7 +34,9 @@ describe('<VacancieInputFilter />', () => {
     const handleChange = jest.fn()
     const inputValue = 'Frontend Developer'
 
-    render(<VacancieInputFilter value={inputValue} onChange={handleChange} />)
+    render(
+      <OpportunitieInputFilter value={inputValue} onChange={handleChange} />,
+    )
 
     const inputElement = screen.getByPlaceholderText(
       'Qual posição você está procurando?',
